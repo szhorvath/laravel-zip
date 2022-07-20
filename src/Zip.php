@@ -111,7 +111,9 @@ class Zip
             throw new \Exception(self::getStatus(ZipArchive::ER_NOENT));
         }
 
-        $this->zip_file = $zip_file;
+        if (is_string($zip_file) == true) {
+            $this->zip_file = $zip_file;
+        }
     }
 
     /**
@@ -593,7 +595,7 @@ class Zip
                     throw $ze;
                 }
             }
-        } else if (is_file($real_file)) {
+        } elseif (is_file($real_file)) {
             $file_target = is_null($base) ? $real_name : $base . $real_name;
 
             $add_file = $this->zip_archive->addFile($real_file, $file_target);
